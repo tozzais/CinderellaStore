@@ -1,0 +1,97 @@
+package com.cinderellavip.store.ui;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.EditText;
+
+import com.cinderellavip.store.MainActivity;
+import com.cinderellavip.store.R;
+import com.tozzais.baselibrary.ui.BaseActivity;
+import com.tozzais.baselibrary.util.CommonUtils;
+
+import androidx.annotation.Nullable;
+import butterknife.BindView;
+import butterknife.OnClick;
+
+public class ForgetPassActivity extends BaseActivity {
+    @BindView(R.id.et_phone)
+    EditText etPhone;
+    @BindView(R.id.et_code)
+    EditText etPass;
+
+    public static void launch(Activity activity) {
+        Intent intent = new Intent(activity, ForgetPassActivity.class);
+        activity.startActivity(intent);
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_forget_pass;
+    }
+
+    @Override
+    public void initView(Bundle savedInstanceState) {
+        setBackTitle("忘记密码");
+
+    }
+
+    @Override
+    public void loadData() {
+
+    }
+
+    @Override
+    public void initListener() {
+
+    }
+
+
+    private void login() {
+        String phone = etPhone.getText().toString().trim();
+        String pass = etPass.getText().toString().trim();
+        if (TextUtils.isEmpty(phone)) {
+            tsg("请输入手机号");
+            return;
+        } else if (!CommonUtils.isMobileNO(phone)) {
+            tsg("请输入正确的手机号");
+            return;
+        }
+        if (TextUtils.isEmpty(pass)) {
+            tsg("请输入登录密码");
+            return;
+        }
+        MainActivity.launch(mActivity);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100 && resultCode == RESULT_OK) {
+            etPhone.setText(data.getStringExtra("phone"));
+            etPass.setText(data.getStringExtra("pass"));
+            etPhone.setSelection(etPhone.getText().toString().trim().length());
+            etPass.setSelection(etPass.getText().toString().trim().length());
+
+        }
+    }
+
+
+
+
+    @OnClick({ R.id.tv_login})
+    public void onClick(View view) {
+        switch (view.getId()) {
+
+            case R.id.tv_login:
+                login();
+                break;
+
+        }
+    }
+
+
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.cinderellavip.store">
+
+    <application
+        android:name=".global.CinderellaStoreApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/logo1"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/logo1"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".ui.GuideActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/WelComeTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.LoginActivity"/>
+        <activity android:name=".ui.CodeLoginActivity"/>
+        <activity android:name=".ui.ForgetPassActivity"/>
+        <activity android:name=".MainActivity"/>
+    </application>
+
+</manifest>

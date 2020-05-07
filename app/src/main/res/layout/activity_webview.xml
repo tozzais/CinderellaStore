@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <me.jingbin.progress.WebProgress
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+        <com.itheima.view.BridgeWebView
+            android:id="@+id/web_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.itheima.view.BridgeWebView>
+
+
+    </LinearLayout>
+
