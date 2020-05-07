@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/item_touch_color">
+    <item android:id="@android:id/mask"
+          android:drawable="@drawable/shape_whitesolid_bottonright5" />
+    <item>
+        <shape android:shape="rectangle" >
+            <!--<corners android:radius="@dimen/dp_4"/>-->
+            <solid android:drawable="@drawable/shape_graysolid_bottonright5"/>
+            <!--<stroke android:color="@color/item_touch_color" android:width="1px"/>-->
+        </shape>
+    </item>
+</ripple>

@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.cinderellavip.store.dialog.CenterDialogUtil;
+import com.cinderellavip.store.ui.LoginActivity;
 import com.flyco.roundview.RoundTextView;
 import com.tozzais.baselibrary.ui.BaseActivity;
 
@@ -88,5 +90,23 @@ public class MainActivity extends BaseActivity {
             case R.id.ll_mine_wallet:
                 break;
         }
+    }
+
+    @Override
+    public void initListener() {
+        super.initListener();
+        tv_right.setOnClickListener(view -> {
+            exit();
+        });
+    }
+
+    private void exit(){
+        CenterDialogUtil.showTwo(mContext,"提示","你确定要退出登录吗？","取消","确定", s->{
+            if (s.equals("1")){
+                LoginActivity.launch(mActivity);
+                finish();
+            }
+
+        });
     }
 }
