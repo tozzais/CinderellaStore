@@ -59,8 +59,13 @@ public class GuideActivity extends BaseActivity {
                 @Override
                 public void onSure() {
                     GlobalParam.setFirstUse(true);
-                    LoginActivity.launch(mActivity);
-                    finish();
+                    if (GlobalParam.getUserLogin()){
+                        MainActivity.launch(mActivity);
+                    }else {
+                        LoginActivity.launch(mActivity);
+                        finish();
+                    }
+
                 }
                 @Override
                 public void onCancel() {
@@ -68,8 +73,12 @@ public class GuideActivity extends BaseActivity {
                 }
             });
         }else {
-            MainActivity.launch(mActivity);
-            finish();
+            if (GlobalParam.getUserLogin()){
+                MainActivity.launch(mActivity);
+            }else {
+                LoginActivity.launch(mActivity);
+                finish();
+            }
         }
 
 

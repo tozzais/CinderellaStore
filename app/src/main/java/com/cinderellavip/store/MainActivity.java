@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cinderellavip.store.dialog.CenterDialogUtil;
+import com.cinderellavip.store.global.GlobalParam;
 import com.cinderellavip.store.ui.LoginActivity;
 import com.flyco.roundview.RoundTextView;
 import com.tozzais.baselibrary.ui.BaseActivity;
@@ -103,6 +104,7 @@ public class MainActivity extends BaseActivity {
     private void exit(){
         CenterDialogUtil.showTwo(mContext,"提示","你确定要退出登录吗？","取消","确定", s->{
             if (s.equals("1")){
+                GlobalParam.setUserLogin(false);
                 LoginActivity.launch(mActivity);
                 finish();
             }

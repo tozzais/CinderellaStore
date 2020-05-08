@@ -32,6 +32,14 @@ public class GlobalParam {
     }
 
 
+    //是否登录
+    public static void setUserLogin(boolean userid) {
+        SharedPreferencesUtil.saveBooleanData(CinderellaStoreApplication.mContext, Constant.user_login, userid);
+    }
+    public static boolean getUserLogin() {
+        return SharedPreferencesUtil.getBooleanData(CinderellaStoreApplication.mContext, Constant.user_login,false);
+    }
+
 
 
 }

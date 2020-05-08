@@ -71,7 +71,7 @@ public class CommonInterceptor implements Interceptor {
                 sbJson.append(line);
                 line = reader.readLine();
             } while (line != null);
-            LogUtil.e("response: " + sbJson.toString());
+//            LogUtil.e("response: " + sbJson.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -102,7 +102,7 @@ public class CommonInterceptor implements Interceptor {
         } else {
             newRequest = request;
         }
-        LogUtil.e("requestUrl: " + newRequest.url().toString());
+//        LogUtil.e("requestUrl: " + newRequest.url().toString());
         return newRequest;
     }
 
@@ -270,22 +270,26 @@ public class CommonInterceptor implements Interceptor {
      * 对get请求做统一参数处理
      */
     private Request rebuildGetRequest(Request request) {
-
-        if (commonParams == null || commonParams.size() == 0) {
-            return request;
-        }
+//
+//        if (commonParams == null || commonParams.size() == 0) {
+//            return request;
+//        }
         String url = request.url().toString();
         int separatorIndex = url.lastIndexOf("?");
+
+        LogUtil.e(url);
         StringBuilder sb = new StringBuilder(url);
         if (separatorIndex == -1) {
             sb.append("?");
         }
-        for (String commonParamKey : commonParams.keySet()) {
-            sb.append("&").append(commonParamKey).append("=").append(commonParams.get(commonParamKey));
-        }
+//        for (String commonParamKey : commonParams.keySet()) {
+//            sb.append("&").append(commonParamKey).append("=").append(commonParams.get(commonParamKey));
+//        }
         String string = sb.toString();
+//        LogUtil.e(string);
 
         Request.Builder requestBuilder = request.newBuilder();
+
         String time = "" + System.currentTimeMillis() / 1000;
         requestBuilder.addHeader("X-Timestamp", time);
         requestBuilder.addHeader("Accept","application/json");
@@ -293,7 +297,15 @@ public class CommonInterceptor implements Interceptor {
         if (!TextUtils.isEmpty(userToken)){
             requestBuilder.addHeader("X-Seller-Token",userToken);
         }
-        requestBuilder.addHeader("X-Sign",SignUtil.getMd5(commonParams,time));
+        if (separatorIndex == -1) {
+            String s = "secret=241cd2aa2aae01cd2&"+"timestamp="+time;
+            requestBuilder.addHeader("X-Sign",SignUtil.getMd5(s));
+        }else {
+            String s = "secret=241cd2aa2aae01cd2&"+"timestamp="+time;
+            requestBuilder.addHeader("X-Sign",
+                    SignUtil.getMd5(url.substring(separatorIndex+1,url.length())+"&"+s));
+        }
+
         return requestBuilder.url(string).build();
     }
 }

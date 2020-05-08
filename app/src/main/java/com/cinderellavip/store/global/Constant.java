@@ -16,7 +16,7 @@ public class Constant {
             .getExternalStorageDirectory() + "/hk_fight";
 
 
-    public static String user_login = "hk_user_login";
+    public static String user_login = "hk_user_login_store";
     public static String search_history = "hk_search_history";
     public static String user_id = "hk_user_id";
     public static String user_nickname = "hk_user_nickname";

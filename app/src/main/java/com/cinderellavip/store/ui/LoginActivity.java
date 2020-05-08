@@ -76,11 +76,11 @@ public class LoginActivity extends BaseActivity {
         TreeMap<String, String> hashMap = new TreeMap<>();
         hashMap.put("account", phone);
         hashMap.put("password", pass);
-        CommonInterceptor.setCommonParam(hashMap);
         new RxHttp<BaseResult<UserInfo>>().send(ApiManager.getService().getLogin(hashMap),
                 new Response<BaseResult<UserInfo>>(mActivity) {
                     @Override
                     public void onSuccess(BaseResult<UserInfo> result) {
+                        GlobalParam.setUserLogin(true);
                         MainActivity.launch(mActivity);
                     }
                 });
