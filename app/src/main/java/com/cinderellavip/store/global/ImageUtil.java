@@ -65,18 +65,7 @@ public class ImageUtil {
                 .error(R.drawable.shape_gray5);
         Glide.with(mContext).load("http://192.168.1.212:9000/FileUpLoad//Image/20186/c96bf354-3243-4f4c-b4e9-dd89a98f2ce6.png").apply(options).into(imageView);
     }
-    public static  void loadNetCircle(Context mContext, ImageView imageView, String path){
-        //设置图片圆角角度
-        RequestOptions options = RequestOptions.circleCropTransform().override(300, 300)
-                //圆形
-                .circleCrop()
-                .error(R.drawable.shape_gray5)
-                .circleCrop();
-        Glide.with(mContext).load(HttpUrl.image_url+path).apply(options).into(imageView);
 
-
-
-    }
     public static  void loadNetAllAddress(Context mContext, ImageView imageView, String path){
         Glide.with(mContext).load(path).into(imageView);
     }

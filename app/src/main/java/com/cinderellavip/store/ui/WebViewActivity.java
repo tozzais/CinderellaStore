@@ -3,19 +3,34 @@ package com.cinderellavip.store.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.cinderellavip.store.AppJs;
+import com.cinderellavip.store.MainActivity;
 import com.cinderellavip.store.R;
-import com.itheima.view.BridgeWebView;
+import com.cinderellavip.store.bean.PayInfo;
+import com.cinderellavip.store.bean.UpdateHome;
+import com.cinderellavip.store.dialog.CenterDialogUtil;
+import com.cinderellavip.store.listener.OnDialogClickListener;
+import com.cinderellavip.store.pay.AlipayUtils;
+import com.cinderellavip.store.pay.PayResultEvent;
+import com.cinderellavip.store.pay.WeChatUtils;
+import com.google.gson.Gson;
+import com.tencent.smtt.sdk.WebChromeClient;
+import com.tencent.smtt.sdk.WebView;
 import com.tozzais.baselibrary.ui.BaseActivity;
-import com.tozzais.baselibrary.util.NetworkUtil;
+import com.ycbjie.webviewlib.BridgeHandler;
+import com.ycbjie.webviewlib.CallBackFunction;
+import com.ycbjie.webviewlib.X5WebView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import me.jingbin.progress.WebProgress;
 
 
@@ -25,7 +40,7 @@ import me.jingbin.progress.WebProgress;
 public class WebViewActivity extends BaseActivity {
 
     @BindView(R.id.web_view)
-    BridgeWebView web_view;
+    X5WebView web_view;
 
     String url = "";
     int status = 1; // 0 是无链接 1是超链接 2 是图文详情3：商品 4:商家
@@ -33,28 +48,28 @@ public class WebViewActivity extends BaseActivity {
     public static final int GRAPHIC = 2;
     @BindView(R.id.progress)
     WebProgress mProgress;
+    @BindView(R.id.title)
+    TextView title;
 
 
-    public static void launch(Context from, String title, String url) {
+    public static void launch(Context from,  String url) {
         Intent intent = new Intent(from, WebViewActivity.class);
-        intent.putExtra("title", title);
         intent.putExtra("url", url);
         from.startActivity(intent);
     }
 
 
-    public static void launch(Context from, String title, String url, int status) {
-        Intent intent = new Intent(from, WebViewActivity.class);
-        intent.putExtra("title", title);
-        intent.putExtra("url", url);
-        intent.putExtra("status", status);
-        from.startActivity(intent);
-    }
+
 
 
     @Override
     public int getLayoutId() {
         return R.layout.activity_webview;
+    }
+
+    @Override
+    protected int getToolbarLayout() {
+        return R.layout.layout_header;
     }
 
     @Override
@@ -65,56 +80,31 @@ public class WebViewActivity extends BaseActivity {
 
     @Override
     public void loadData() {
-        String title = getIntent().getStringExtra("title");
         url = getIntent().getStringExtra("url");
         status = getIntent().getIntExtra("status", 1);
 
 
-        WebSettings webSettings = web_view.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-        webSettings.setDomStorageEnabled(true);
         if (status == 1) {
             web_view.loadUrl(url);
             //监听WebView是否加载完成网页
-//            web_view.setWebViewClient(new WebViewClient() {
-//                @Override
-//                public void onPageFinished(WebView view, String url) {
-//                    super.onPageFinished(view, url);
-//                    setBackTitle(view.getTitle());
-//                }
-//
-//            });
-            setBackTitle(title);
+            web_view.setWebChromeClient(new WebChrome());
+//            setBackTitle(title);
 
-        } else if (status == GRAPHIC) {
-            setBackTitle(title);
-//            String data = Html.fromHtml(url).toString();
-            String varjs = "<script type='text/javascript'> \nwindow.onload = function()\n{var $img = document.getElementsByTagName('img');for(var p in  $img){$img[p].style.width = '100%'; $img[p].style.height ='auto'}}</script>";
-            web_view.loadDataWithBaseURL("", varjs + url, "text/html", "UTF-8", null);
-//            String html = "<html><body><img src=" + url + " width=100% height=100%/></body></html>";
-//            web_view.loadData(Html.fromHtml(url).toString(), "text/html", "UTF-8");
-//            web_view.loadData(url, "text/html",  "UTF-8");
-
-            web_view.setWebViewClient(new WebViewClient() {
-                @Override
-                public void onPageFinished(WebView view, String url) {
-                    // html加载完成之后，无网隐藏进度条
-                    if (!NetworkUtil.isNetworkAvailable(mActivity)) {
-                        mProgress.hide();
-                    }
-                    super.onPageFinished(view, url);
-                }
-
-
-            });
-            web_view.setWebChromeClient(new WebChromeClient());
         }
 
         //显示进度条
         mProgress.show();
         mProgress.setColor("#FF0000");
+        web_view.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
 
+        web_view.addJavascriptInterface(new AppJs(this), "toPay");
+//        web_view.registerHandler("toPay", new BridgeHandler() {
+//            @Override
+//            public void handler(String data, CallBackFunction function) {
+//                Log.e("TAG", "js返回：" + data);
+//
+//            }
+//        });
 
     }
 
@@ -123,134 +113,129 @@ public class WebViewActivity extends BaseActivity {
 
     }
 
-    public class WebChromeClient extends android.webkit.WebChromeClient {
-        @Override
-        public void onProgressChanged(WebView view, int newProgress) {
-            super.onProgressChanged(view, newProgress);
-            mProgress.setWebProgress(newProgress);
+    @OnClick({R.id.iv_left_back, R.id.iv_left_close})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_left_back:
+                if (web_view.canGoBack()){
+                    web_view.goBack();
+                }else {
+                    finish();
+                }
+                break;
+            case R.id.iv_left_close:
+                finish();
+                break;
+        }
+    }
+
+    PayInfo payInfo;
+    public void pay(String data) {
+        Gson gson = new Gson();
+        payInfo = gson.fromJson(data, PayInfo.class);
+        if (payInfo.payment == 1){
+            AlipayUtils.getInstance().alipay(mActivity, payInfo.pay_string, new AlipayUtils.OnPayListener() {
+                @Override
+                public void onPaySuccess() {
+                    paySuccess();
+                }
+                @Override
+                public void onPayWait() {
+                }
+                @Override
+                public void onPayFail() {
+
+                }
+            });
+        }else {
+            WeChatUtils.getInstance(mActivity).wechatPay(payInfo.pay_info);
+
         }
 
     }
 
+    private void paySuccess(){
+        String s = "恭喜您，成功升级为加V认证商家，享受超高曝光和平台流量以及推荐权限";
+        if (payInfo.vipType == 0){
+             s = "恭喜您，成功升级为加V认证商家，享受超高曝光和平台流量以及推荐权限";
+        }else {
+            s = "恭喜您，成功升级为品牌认证商家，享受超高曝光和平台流量以及推荐权限";
+        }
+
+        CenterDialogUtil.showSuccess(mContext, s, new OnDialogClickListener() {
+            @Override
+            public void onSure() {
+                EventBus.getDefault().post(new UpdateHome());
+                finish();
+
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+        });
+    }
+
+   public class WebChrome extends WebChromeClient {
+        @Override
+        public void onProgressChanged(WebView webView, int i) {
+            super.onProgressChanged(webView, i);
+            mProgress.setProgress(i);
+            title.setText(webView.getTitle());
+
+            web_view.loadUrl("javascript:"+"toPay");
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (web_view != null) {
+            web_view.getSettings().setJavaScriptEnabled(true);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (web_view != null) {
+            web_view.getSettings().setJavaScriptEnabled(false);
+        }
+    }
 
     @Override
     protected void onDestroy() {
-
-        DestoryWebview();
-        super.onDestroy();
-
-
-    }
-
-    private void DestoryWebview() {
-        if (web_view != null) {
-            ViewGroup parent = (ViewGroup) web_view.getParent();
-            if (parent != null) {
-                parent.removeView(web_view);
+        try {
+            if (web_view != null) {
+                web_view.stopLoading();
+                web_view.destroy();
+                web_view = null;
             }
-            web_view.removeAllViews();
-            web_view.destroy();
+        } catch (Exception e) {
         }
+        super.onDestroy();
     }
 
-    public class ResizeImgWebviewClient extends WebViewClient {
-        @Override
-        public void onPageFinished(WebView view, String url) {
-            super.onPageFinished(view, url);
-//            resizeImg(view);
-//            addImgClickEvent(view);
-//            view.loadUrl("javascript:ResizeImages();");
-            loadJS();
-        }
-
-        /**
-         * 添加图片点击事件
-         *
-         * @param view
-         */
-        private void addImgClickEvent(WebView view) {
-            view.loadUrl("javascript:(function(){" +
-                    "var objs = document.getElementsByTagName(\"img\"); " +
-                    "for(var i=0;i<objs.length;i++)  " +
-                    "{"
-                    + "    objs[i].onclick=function()  " +
-                    "    {  "
-                    + "        window.JsBridge.openImage(this.src);  " +
-                    "    }  " +
-                    "}" +
-                    "})()");
-        }
-
-        /**
-         * 重新调整图片宽高
-         *
-         * @param view
-         */
-        private void resizeImg(WebView view) {
-            view.loadUrl("javascript:(function(){" +
-                    "var objs = document.getElementsByTagName('img'); " +
-                    "for(var i=0;i<objs.length;i++)  " +
-                    "{"
-                    + "var img = objs[i];   " +
-                    "    img.style.maxWidth = '100%'; img.style.height = 'auto';  " +
-                    "}" +
-                    "})()");
-        }
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && web_view.canGoBack()) {
+            web_view.goBack();// 返回前一个页面
+                       return true;
+                  }
+        return super.onKeyDown(keyCode, event);
     }
 
-    private void loadJS() {
-        web_view.loadUrl("javascript:(function(){"
-                //将DIV元素中的外边距和内边距设置为零，防止网页左右有空隙
-                + " var divs = document.getElementsByTagName(\"div\");"
-                + " for(var j=0;j<divs.length;j++){"
-                + "   divs[j].style.margin=\"0px\";"
-                + "   divs[j].style.padding=\"0px\";"
-                + "   divs[j].style.width=document.body.clientWidth;"
-                + " }"
-
-                + " var imgs = document.getElementsByTagName(\"img\"); "
-                + "   for(var i=0;i<imgs.length;i++)  "
-                + "       {"
-                //过滤掉GIF图片，防止过度放大后，GIF失真
-                + "    var vkeyWords=/.gif$/;"
-                + "        if(!vkeyWords.test(imgs[i].src)){"
-                + "         var hRatio=" + getScreenWidthPX() + "/objs[i].width;"
-                + "         objs[i].height= objs[i].height*hRatio;"//通过缩放比例来设置图片的高度
-                + "         objs[i].width=" + getScreenWidthPX() + ";"//设置图片的宽度
-                + "        }"
-                + "}"
-                + "})()");
-
-    }
-
-    /**
-     * 获取屏幕的宽度（单位：像素PX）
-     *
-     * @return
-     */
-    private int getScreenWidthPX() {
-        WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics dm = new DisplayMetrics();
-        if (wm != null && wm.getDefaultDisplay() != null) {
-            wm.getDefaultDisplay().getMetrics(dm);
-            return px2dip(dm.widthPixels);
-        } else {
-            return 0;
+    @Override
+    public void onEvent(Object o) {
+        if (o instanceof PayResultEvent) {
+            PayResultEvent event = (PayResultEvent) o;
+            if (event.status == 0 || event.status == 1 || event.status == 2) {
+                if (event.status == 0) {
+                    paySuccess();
+                }
+            }
         }
     }
-
-    /**
-     * 像素转DP
-     *
-     * @param pxValue
-     * @return
-     */
-    public int px2dip(float pxValue) {
-        float scale = this.getResources().getDisplayMetrics().density;
-        return (int) (pxValue / scale);
-    }
-
-
-
 }

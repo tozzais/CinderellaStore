@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+
+
+    <LinearLayout
+        android:id="@+id/ll_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="15dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:paddingBottom="20dp"
+        android:background="@drawable/shape_white5"
+        android:orientation="vertical">
+
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:gravity="center_vertical">
+
+
+          <TextView
+              style="@style/base_text_style"
+              android:text="您已经升级成功"
+              android:textSize="18sp"
+              android:textStyle="bold"
+              android:layout_marginLeft="12dp"/>
+
+      </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_content"
+            style="@style/base_text_style"
+            android:gravity="center"
+            android:lineSpacingExtra="5dp"
+            android:textColor="@color/grayText"
+            android:text="恭喜您，成功升级为加V认证商家，享受超高曝光和平台流量以及推荐权限"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="12dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/tjcgtbb"
+            android:layout_marginTop="15dp"/>
+
+
+
+        <TextView
+            android:id="@+id/tv_login"
+            android:layout_width="180dp"
+            style="@style/login_btn_style"
+            android:layout_marginTop="30dp"
+            android:text="我知道了"/>
+
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>

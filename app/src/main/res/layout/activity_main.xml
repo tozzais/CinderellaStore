@@ -1,503 +1,513 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/gray_bg" >
-    <LinearLayout
+    android:id="@+id/swipeLayout"
+    android:layout_height="match_parent" >
+    <androidx.core.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/gray_bg"
-        tools:context=".MainActivity">
-
-        <LinearLayout
-            android:id="@+id/ll_tip"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:background="#ffe7d1">
-
-            <TextView
-                style="@style/base_text_style"
-                android:layout_weight="1"
-                android:text="您尚未缴纳保证金，缴纳保证金后，可以享受超高曝光，提高产品销量。"
-                android:textColor="@color/yellowText"
-                android:padding="12dp"
-                android:textSize="12sp"
-                android:lineSpacingExtra="3dp"/>
-
-            <TextView
-                android:id="@+id/tv_up_grade"
-                style="@style/login_btn_style"
-                android:layout_width="85dp"
-                android:layout_height="wrap_content"
-                android:text="立即升级"
-                android:background="@drawable/shape_ff6000_50"
-                android:textColor="@color/white"
-                android:textSize="10sp"
-                android:padding="6dp"
-                />
-
-
-        </LinearLayout>
-
+        android:background="@color/gray_bg" >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shape_white5"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="12dp"
-            android:gravity="center_vertical"
-            android:padding="12dp"
-            android:orientation="horizontal">
-            <RelativeLayout
-                android:layout_width="44dp"
-                android:layout_height="44dp">
-                <ImageView
-                    android:id="@+id/iv_image"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:scaleType="centerCrop"
-                    android:layout_centerInParent="true"
-                    tools:src="@mipmap/logo1"/>
-
-                <ImageView
-                    android:id="@+id/iv_image_flag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:src="@mipmap/icon_store_flag1"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"/>
-            </RelativeLayout>
-
-
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/gray_bg"
+            tools:context=".MainActivity">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/ll_tip"
+                android:visibility="gone"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tv_name"
-                    style="@style/base_text_style"
-                    tools:text="灰姑娘官方旗舰店"
-                    />
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="#ffe7d1">
 
                 <TextView
-                    android:id="@+id/tv_content"
-                    style="@style/base_text_style_gray_small"
-                    tools:text="商品：35件     总销量：7件     "
-                    android:layout_marginTop="5dp"
+                    style="@style/base_text_style"
+                    android:layout_weight="1"
+                    android:text="您尚未缴纳保证金，缴纳保证金后，可以享受超高曝光，提高产品销量。"
+                    android:textColor="@color/yellowText"
+                    android:padding="12dp"
+                    android:textSize="12sp"
+                    android:lineSpacingExtra="3dp"/>
+
+                <TextView
+                    android:id="@+id/tv_up_grade"
+                    style="@style/login_btn_style"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:text="立即升级"
+                    android:background="@drawable/shape_ff6000_50"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:padding="6dp"
                     />
+
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_white5"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:padding="12dp"
+                android:orientation="horizontal">
+                <RelativeLayout
+                    android:layout_width="44dp"
+                    android:layout_height="44dp">
+                    <ImageView
+                        android:id="@+id/iv_image"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:scaleType="centerCrop"
+                        android:layout_centerInParent="true"
+                        tools:src="@mipmap/logo1"/>
+
+                    <ImageView
+                        android:id="@+id/iv_image_flag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:src="@mipmap/icon_store_flag1"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tv_name"
+                        style="@style/base_text_style"
+                        tools:text="灰姑娘官方旗舰店"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_content"
+                        style="@style/base_text_style_gray_small"
+                        tools:text="商品：35件     总销量：7件     "
+                        android:layout_marginTop="5dp"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/ll_all_order"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginRight="6dp"
+                    android:background="@drawable/shape_white5"
+                    android:layout_height="wrap_content">
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_centerInParent="true"
+                        android:padding="18dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_home1"/>
+
+                        <TextView
+                            style="@style/base_text_style"
+                            android:text="全部订单"
+                            android:layout_marginTop="6dp"
+                            />
+
+                    </LinearLayout>
+
+                    <com.flyco.roundview.RoundTextView
+                        android:id="@+id/tv_all_order"
+                        app:rv_backgroundPressColor="@color/red"
+                        app:rv_backgroundColor="@color/red"
+                        app:rv_isRadiusHalfHeight="true"
+                        style="@style/cart_number_style"
+                        tools:text="3"
+                        android:visibility="gone"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="12dp"
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/ll_return_order"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="6dp"
+                    android:background="@drawable/shape_white5"
+                    android:layout_height="wrap_content">
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_centerInParent="true"
+                        android:padding="18dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_home2"/>
+
+                        <TextView
+                            style="@style/base_text_style"
+                            android:text="退款申请订单"
+                            android:layout_marginTop="6dp"
+                            />
+
+                    </LinearLayout>
+
+                    <com.flyco.roundview.RoundTextView
+                        android:id="@+id/tv_return_order"
+                        app:rv_backgroundPressColor="@color/red"
+                        app:rv_backgroundColor="@color/red"
+                        app:rv_isRadiusHalfHeight="true"
+                        style="@style/cart_number_style"
+                        tools:text="3"
+                        android:visibility="gone"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="12dp"
+                        />
+                </RelativeLayout>
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/ll_today_order"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginRight="6dp"
+                    android:background="@drawable/shape_white5"
+                    android:layout_height="wrap_content">
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_centerInParent="true"
+                        android:padding="18dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_home3"/>
+
+                        <TextView
+                            style="@style/base_text_style"
+                            android:text="今日订单"
+                            android:layout_marginTop="6dp"
+                            />
+
+                    </LinearLayout>
+
+                    <com.flyco.roundview.RoundTextView
+                        android:id="@+id/tv_today_order"
+                        app:rv_backgroundPressColor="@color/red"
+                        app:rv_backgroundColor="@color/red"
+                        app:rv_isRadiusHalfHeight="true"
+                        style="@style/cart_number_style"
+                        tools:text="3"
+                        android:visibility="gone"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="12dp"
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/ll_send_order"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="6dp"
+                    android:background="@drawable/shape_white5"
+                    android:layout_height="wrap_content">
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_centerInParent="true"
+                        android:padding="18dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_home4"/>
+
+                        <TextView
+                            style="@style/base_text_style"
+                            android:text="待发货订单"
+                            android:layout_marginTop="6dp"
+                            />
+
+                    </LinearLayout>
+
+                    <com.flyco.roundview.RoundTextView
+                        android:id="@+id/tv_send_order"
+                        app:rv_backgroundPressColor="@color/red"
+                        app:rv_backgroundColor="@color/red"
+                        app:rv_isRadiusHalfHeight="true"
+                        style="@style/cart_number_style"
+                        tools:text="3"
+                        android:visibility="gone"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="12dp"
+                        />
+                </RelativeLayout>
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/ll_order_count"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginRight="6dp"
+                    android:background="@drawable/shape_white5"
+                    android:layout_height="wrap_content">
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_centerInParent="true"
+                        android:padding="18dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_home5"/>
+
+                        <TextView
+                            style="@style/base_text_style"
+                            android:text="订单统计"
+                            android:layout_marginTop="6dp"
+                            />
+
+                    </LinearLayout>
+
+                    <com.flyco.roundview.RoundTextView
+                        android:id="@+id/tv_order_count"
+                        app:rv_backgroundPressColor="@color/red"
+                        app:rv_backgroundColor="@color/red"
+                        app:rv_isRadiusHalfHeight="true"
+                        style="@style/cart_number_style"
+                        tools:text="3"
+                        android:visibility="gone"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="12dp"
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/ll_order_money"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="6dp"
+                    android:background="@drawable/shape_white5"
+                    android:layout_height="wrap_content">
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_centerInParent="true"
+                        android:padding="18dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_home6"/>
+
+                        <TextView
+                            style="@style/base_text_style"
+                            android:text="成交额"
+                            android:layout_marginTop="6dp"
+                            />
+
+                    </LinearLayout>
+
+                    <com.flyco.roundview.RoundTextView
+                        android:id="@+id/tv_order_money"
+                        app:rv_backgroundPressColor="@color/red"
+                        app:rv_backgroundColor="@color/red"
+                        app:rv_isRadiusHalfHeight="true"
+                        style="@style/cart_number_style"
+                        tools:text="3"
+                        android:visibility="gone"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="12dp"
+                        />
+                </RelativeLayout>
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/ll_flow_count"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginRight="6dp"
+                    android:background="@drawable/shape_white5"
+                    android:layout_height="wrap_content">
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_centerInParent="true"
+                        android:padding="18dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_home7"/>
+
+                        <TextView
+                            style="@style/base_text_style"
+                            android:text="流量统计"
+                            android:layout_marginTop="6dp"
+                            />
+
+                    </LinearLayout>
+
+                    <com.flyco.roundview.RoundTextView
+                        android:id="@+id/tv_flow_count"
+                        app:rv_backgroundPressColor="@color/red"
+                        app:rv_backgroundColor="@color/red"
+                        app:rv_isRadiusHalfHeight="true"
+                        style="@style/cart_number_style"
+                        tools:text="3"
+                        android:visibility="gone"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="12dp"
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/ll_mine_wallet"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="6dp"
+                    android:background="@drawable/shape_white5"
+                    android:layout_height="wrap_content">
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_centerInParent="true"
+                        android:padding="18dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_home8"/>
+
+                        <TextView
+                            style="@style/base_text_style"
+                            android:text="我的钱包"
+                            android:layout_marginTop="6dp"
+                            />
+
+                    </LinearLayout>
+
+                    <com.flyco.roundview.RoundTextView
+                        android:id="@+id/tv_mine_wallet"
+                        app:rv_backgroundPressColor="@color/red"
+                        app:rv_backgroundColor="@color/red"
+                        app:rv_isRadiusHalfHeight="true"
+                        style="@style/cart_number_style"
+                        tools:text="3"
+                        android:visibility="gone"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="12dp"
+                        />
+                </RelativeLayout>
+
+
+
+
+            </LinearLayout>
+
+
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="12dp"
-            android:orientation="horizontal">
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-            <RelativeLayout
-                android:id="@+id/ll_all_order"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_marginRight="6dp"
-                android:background="@drawable/shape_white5"
-                android:layout_height="wrap_content">
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_centerInParent="true"
-                    android:padding="18dp"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/icon_home1"/>
-
-                    <TextView
-                        style="@style/base_text_style"
-                        android:text="全部订单"
-                        android:layout_marginTop="6dp"
-                        />
-
-                </LinearLayout>
-
-                <com.flyco.roundview.RoundTextView
-                    android:id="@+id/tv_all_order"
-                    app:rv_backgroundPressColor="@color/red"
-                    app:rv_backgroundColor="@color/red"
-                    app:rv_isRadiusHalfHeight="true"
-                    style="@style/cart_number_style"
-                    tools:text="3"
-                    android:visibility="gone"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="12dp"
-                    />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/ll_return_order"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_marginLeft="6dp"
-                android:background="@drawable/shape_white5"
-                android:layout_height="wrap_content">
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_centerInParent="true"
-                    android:padding="18dp"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/icon_home2"/>
-
-                    <TextView
-                        style="@style/base_text_style"
-                        android:text="退款申请订单"
-                        android:layout_marginTop="6dp"
-                        />
-
-                </LinearLayout>
-
-                <com.flyco.roundview.RoundTextView
-                    android:id="@+id/tv_return_order"
-                    app:rv_backgroundPressColor="@color/red"
-                    app:rv_backgroundColor="@color/red"
-                    app:rv_isRadiusHalfHeight="true"
-                    style="@style/cart_number_style"
-                    tools:text="3"
-                    android:visibility="gone"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="12dp"
-                    />
-            </RelativeLayout>
-
-
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="12dp"
-            android:orientation="horizontal">
-
-            <RelativeLayout
-                android:id="@+id/ll_today_order"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_marginRight="6dp"
-                android:background="@drawable/shape_white5"
-                android:layout_height="wrap_content">
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_centerInParent="true"
-                    android:padding="18dp"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/icon_home3"/>
-
-                    <TextView
-                        style="@style/base_text_style"
-                        android:text="今日订单"
-                        android:layout_marginTop="6dp"
-                        />
-
-                </LinearLayout>
-
-                <com.flyco.roundview.RoundTextView
-                    android:id="@+id/tv_today_order"
-                    app:rv_backgroundPressColor="@color/red"
-                    app:rv_backgroundColor="@color/red"
-                    app:rv_isRadiusHalfHeight="true"
-                    style="@style/cart_number_style"
-                    tools:text="3"
-                    android:visibility="gone"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="12dp"
-                    />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/ll_send_order"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_marginLeft="6dp"
-                android:background="@drawable/shape_white5"
-                android:layout_height="wrap_content">
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_centerInParent="true"
-                    android:padding="18dp"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/icon_home4"/>
-
-                    <TextView
-                        style="@style/base_text_style"
-                        android:text="待发货订单"
-                        android:layout_marginTop="6dp"
-                        />
-
-                </LinearLayout>
-
-                <com.flyco.roundview.RoundTextView
-                    android:id="@+id/tv_send_order"
-                    app:rv_backgroundPressColor="@color/red"
-                    app:rv_backgroundColor="@color/red"
-                    app:rv_isRadiusHalfHeight="true"
-                    style="@style/cart_number_style"
-                    tools:text="3"
-                    android:visibility="gone"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="12dp"
-                    />
-            </RelativeLayout>
-
-
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="12dp"
-            android:orientation="horizontal">
-
-            <RelativeLayout
-                android:id="@+id/ll_order_count"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_marginRight="6dp"
-                android:background="@drawable/shape_white5"
-                android:layout_height="wrap_content">
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_centerInParent="true"
-                    android:padding="18dp"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/icon_home5"/>
-
-                    <TextView
-                        style="@style/base_text_style"
-                        android:text="订单统计"
-                        android:layout_marginTop="6dp"
-                        />
-
-                </LinearLayout>
-
-                <com.flyco.roundview.RoundTextView
-                    android:id="@+id/tv_order_count"
-                    app:rv_backgroundPressColor="@color/red"
-                    app:rv_backgroundColor="@color/red"
-                    app:rv_isRadiusHalfHeight="true"
-                    style="@style/cart_number_style"
-                    tools:text="3"
-                    android:visibility="gone"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="12dp"
-                    />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/ll_order_money"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_marginLeft="6dp"
-                android:background="@drawable/shape_white5"
-                android:layout_height="wrap_content">
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_centerInParent="true"
-                    android:padding="18dp"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/icon_home6"/>
-
-                    <TextView
-                        style="@style/base_text_style"
-                        android:text="成交额"
-                        android:layout_marginTop="6dp"
-                        />
-
-                </LinearLayout>
-
-                <com.flyco.roundview.RoundTextView
-                    android:id="@+id/tv_order_money"
-                    app:rv_backgroundPressColor="@color/red"
-                    app:rv_backgroundColor="@color/red"
-                    app:rv_isRadiusHalfHeight="true"
-                    style="@style/cart_number_style"
-                    tools:text="3"
-                    android:visibility="gone"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="12dp"
-                    />
-            </RelativeLayout>
-
-
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            android:orientation="horizontal">
-
-            <RelativeLayout
-                android:id="@+id/ll_flow_count"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_marginRight="6dp"
-                android:background="@drawable/shape_white5"
-                android:layout_height="wrap_content">
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_centerInParent="true"
-                    android:padding="18dp"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/icon_home7"/>
-
-                    <TextView
-                        style="@style/base_text_style"
-                        android:text="流量统计"
-                        android:layout_marginTop="6dp"
-                        />
-
-                </LinearLayout>
-
-                <com.flyco.roundview.RoundTextView
-                    android:id="@+id/tv_flow_count"
-                    app:rv_backgroundPressColor="@color/red"
-                    app:rv_backgroundColor="@color/red"
-                    app:rv_isRadiusHalfHeight="true"
-                    style="@style/cart_number_style"
-                    tools:text="3"
-                    android:visibility="gone"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="12dp"
-                    />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/ll_mine_wallet"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_marginLeft="6dp"
-                android:background="@drawable/shape_white5"
-                android:layout_height="wrap_content">
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_centerInParent="true"
-                    android:padding="18dp"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/icon_home8"/>
-
-                    <TextView
-                        style="@style/base_text_style"
-                        android:text="我的钱包"
-                        android:layout_marginTop="6dp"
-                        />
-
-                </LinearLayout>
-
-                <com.flyco.roundview.RoundTextView
-                    android:id="@+id/tv_mine_wallet"
-                    app:rv_backgroundPressColor="@color/red"
-                    app:rv_backgroundColor="@color/red"
-                    app:rv_isRadiusHalfHeight="true"
-                    style="@style/cart_number_style"
-                    tools:text="3"
-                    android:visibility="gone"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="12dp"
-                    />
-            </RelativeLayout>
-
-
-
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>

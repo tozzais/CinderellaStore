@@ -33,7 +33,7 @@ public class Constant {
 
     //微信相关
     public static String SMALL_APPLICATION_ID = "gh_269043eeeee4";
-    public static String WX_APPID = "wxa47d5e47b775478e";
+    public static String WX_APPID = "wx85d0dcba9bb8a9dc";
     public static String WX_APP_SECRET = "0338afaaaacfdcde4e778cc2df841df4";
 
     //年度额度查询地址

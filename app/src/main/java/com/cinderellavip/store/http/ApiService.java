@@ -12,6 +12,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 import rx.Observable;
 
@@ -52,6 +53,10 @@ public interface ApiService {
     @GET(HttpUrl.home)
     Observable<BaseResult<HomeInfo>>
     getHome();
+
+//    @GET("api/user/agreements/{type}")
+//    Observable<BaseResult>
+//    getAgreement(@Path("type") String type);
 
 
 

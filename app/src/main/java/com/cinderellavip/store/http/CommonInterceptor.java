@@ -152,9 +152,6 @@ public class CommonInterceptor implements Interceptor {
 
         LogUtil.e(url);
         StringBuilder sb = new StringBuilder(url);
-        if (separatorIndex == -1) {
-            sb.append("?");
-        }
         String string = sb.toString();
         Request.Builder requestBuilder = request.newBuilder();
         String time = "" + System.currentTimeMillis() / 1000;

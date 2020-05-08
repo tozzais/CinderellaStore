@@ -5,9 +5,9 @@ package com.cinderellavip.store.http;
  */
 public interface HttpUrl {
 
-
     String server_url = "https://api.huiguniangvip.com/";
-    String image_url = server_url+"gp/profile/";
+    String h5_url = "http://h5.huiguniangvip.com";
+
 
     String login = "api/seller/login/pas";  //用户名登录
     String get_code = "api/store/sms/send";  //获取验证码

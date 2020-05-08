@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.cinderellavip.store.R;
+import com.cinderellavip.store.listener.OnDialogClickListener;
 import com.cinderellavip.store.listener.OnGetStringListener;
 
 
@@ -41,6 +42,22 @@ public class CenterDialogUtil {
             cityDialog = null;
 
         });
+    }
+
+    public static void showSuccess(Context context,
+                                String content
+            , final OnDialogClickListener listener) {
+        View messageView = View.inflate(context, R.layout.pop_commit_success, null);
+        cityDialog = DialogUtils.getCenterDialog(context, messageView,false);
+        TextView tv_content = messageView.findViewById(R.id.tv_content);
+        TextView tv_login = messageView.findViewById(R.id.tv_login);
+        tv_content.setText(content);
+        tv_login.setOnClickListener(v -> {
+            listener.onSure();
+            cityDialog.dismiss();
+            cityDialog = null;
+        });
+
     }
 
 }

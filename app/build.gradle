@@ -25,6 +25,12 @@ android {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
+    sourceSets {
+        main {
+            jniLibs.srcDir 'libs'
+        }
+    }
+
 
 }
 
@@ -47,4 +53,7 @@ dependencies {
     implementation 'com.github.youlookwhat:WebProgress:1.1.0'
 
     implementation 'cn.yc:WebViewLib:1.2.2'
+
+    // 支付宝 SDK AAR 包所需的配置
+    implementation(name: 'alipaySdk-15.6.8-20191021122514', ext: 'aar')
 }

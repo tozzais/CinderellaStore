@@ -9,17 +9,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cinderellavip.store.bean.HomeInfo;
+import com.cinderellavip.store.bean.UpdateHome;
 import com.cinderellavip.store.dialog.CenterDialogUtil;
 import com.cinderellavip.store.global.GlobalParam;
 import com.cinderellavip.store.global.ImageUtil;
 import com.cinderellavip.store.http.ApiManager;
 import com.cinderellavip.store.http.BaseResult;
+import com.cinderellavip.store.http.HttpUrl;
 import com.cinderellavip.store.http.Response;
 import com.cinderellavip.store.ui.LoginActivity;
+import com.cinderellavip.store.ui.WebViewActivity;
 import com.flyco.roundview.RoundTextView;
 import com.tozzais.baselibrary.http.RxHttp;
 import com.tozzais.baselibrary.ui.BaseActivity;
+import com.tozzais.baselibrary.util.log.LogUtil;
 
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -51,6 +56,8 @@ public class MainActivity extends BaseActivity {
     RoundTextView tvFlowCount;
     @BindView(R.id.tv_mine_wallet)
     RoundTextView tvMineWallet;
+    @BindView(R.id.swipeLayout)
+    SwipeRefreshLayout swipeLayout;
 
     public static void launch(Activity context) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -111,6 +118,12 @@ public class MainActivity extends BaseActivity {
                             tvSendOrder.setVisibility(View.GONE);
                         }
                     }
+
+                    @Override
+                    public void onCompleted() {
+                        super.onCompleted();
+                        swipeLayout.setRefreshing(false);
+                    }
                 });
 
     }
@@ -121,22 +134,41 @@ public class MainActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_up_grade:
+
+                if (GlobalParam.getUserLogin())
+                    WebViewActivity.launch(mActivity,HttpUrl.h5_url+"/#/pay/"+GlobalParam.getUserToken());
                 break;
             case R.id.ll_all_order:
+                if (GlobalParam.getUserLogin())
+                WebViewActivity.launch(mActivity,HttpUrl.h5_url+"/#/order/0/"+GlobalParam.getUserToken());
                 break;
             case R.id.ll_return_order:
+                if (GlobalParam.getUserLogin())
+                    WebViewActivity.launch(mActivity,HttpUrl.h5_url+"/#/refundOrder/"+GlobalParam.getUserToken());
                 break;
             case R.id.ll_today_order:
+                if (GlobalParam.getUserLogin())
+                    WebViewActivity.launch(mActivity,HttpUrl.h5_url+"/#/order/2/"+GlobalParam.getUserToken());
                 break;
             case R.id.ll_send_order:
+                if (GlobalParam.getUserLogin())
+                    WebViewActivity.launch(mActivity,HttpUrl.h5_url+"/#/order/3/"+GlobalParam.getUserToken());
                 break;
             case R.id.ll_order_count:
+                if (GlobalParam.getUserLogin())
+                    WebViewActivity.launch(mActivity,HttpUrl.h5_url+"/#/statistics/"+GlobalParam.getUserToken());
                 break;
             case R.id.ll_order_money:
+                if (GlobalParam.getUserLogin())
+                    WebViewActivity.launch(mActivity,HttpUrl.h5_url+"/#/volumeBusiness/"+GlobalParam.getUserToken());
                 break;
             case R.id.ll_flow_count:
+                if (GlobalParam.getUserLogin())
+                    WebViewActivity.launch(mActivity,HttpUrl.h5_url+"/#/flow/"+GlobalParam.getUserToken());
                 break;
             case R.id.ll_mine_wallet:
+                if (GlobalParam.getUserLogin())
+                    WebViewActivity.launch(mActivity,HttpUrl.h5_url+"/#/wallet/"+GlobalParam.getUserToken());
                 break;
         }
     }
@@ -146,6 +178,9 @@ public class MainActivity extends BaseActivity {
         super.initListener();
         tv_right.setOnClickListener(view -> {
             exit();
+        });
+        swipeLayout.setOnRefreshListener(() -> {
+            loadData();
         });
     }
 
@@ -158,5 +193,13 @@ public class MainActivity extends BaseActivity {
             }
 
         });
+    }
+
+    @Override
+    public void onEvent(Object o) {
+        super.onEvent(o);
+        if (o instanceof UpdateHome){
+            loadData();
+        }
     }
 }
