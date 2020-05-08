@@ -9,7 +9,9 @@ import android.widget.EditText;
 
 import com.cinderellavip.store.MainActivity;
 import com.cinderellavip.store.R;
+import com.cinderellavip.store.bean.FinishLogin;
 import com.cinderellavip.store.bean.UserInfo;
+import com.cinderellavip.store.global.Constant;
 import com.cinderellavip.store.global.GlobalParam;
 import com.cinderellavip.store.http.ApiManager;
 import com.cinderellavip.store.http.BaseResult;
@@ -81,17 +83,18 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onSuccess(BaseResult<UserInfo> result) {
                         GlobalParam.setUserLogin(true);
+                        GlobalParam.setUserToken(result.data.token);
+                        GlobalParam.setUserId(result.data.seller_id+"");
                         MainActivity.launch(mActivity);
                     }
                 });
-
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100 && resultCode == RESULT_OK) {
+        if (requestCode == Constant.REQUEST_CODE_FORGET_PASS && resultCode == RESULT_OK) {
             etPhone.setText(data.getStringExtra("phone"));
             etPass.setText(data.getStringExtra("pass"));
             etPhone.setSelection(etPhone.getText().toString().trim().length());
@@ -119,5 +122,11 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-
+    @Override
+    public void onEvent(Object o) {
+        super.onEvent(o);
+        if (o instanceof FinishLogin){
+            finish();
+        }
+    }
 }

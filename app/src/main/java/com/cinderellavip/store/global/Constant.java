@@ -18,7 +18,7 @@ public class Constant {
 
     public static String user_login = "hk_user_login_store";
     public static String search_history = "hk_search_history";
-    public static String user_id = "hk_user_id";
+    public static String user_id = "hk_user_id_store";
     public static String user_nickname = "hk_user_nickname";
     public static String user_token = "hk_user_token_store";
     public static String user_bean_string = "hk_user_bean_string";
@@ -55,6 +55,9 @@ public class Constant {
 
     public static final int MENTION = 0; //自提
     public static final int LOGISTICS = 1; //物流
+
+
+    public static final int REQUEST_CODE_FORGET_PASS = 1001;
 
 
 }

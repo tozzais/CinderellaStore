@@ -30,6 +30,14 @@ public class GlobalParam {
     public static String getUserToken() {
         return SharedPreferencesUtil.getStringData(CinderellaStoreApplication.mContext, Constant.user_token,"");
     }
+    //存 用户的ID
+    public static void setUserId(String userid) {
+        SharedPreferencesUtil.saveStringData(CinderellaStoreApplication.mContext, Constant.user_id, userid);
+    }
+    //取 用户的用户的ID
+    public static String getUserId() {
+        return SharedPreferencesUtil.getStringData(CinderellaStoreApplication.mContext, Constant.user_id,"");
+    }
 
 
     //是否登录
