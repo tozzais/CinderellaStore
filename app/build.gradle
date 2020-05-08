@@ -21,6 +21,21 @@ android {
         }
     }
 
+    signingConfigs {
+        release {
+            keyAlias 'hanyu'
+            keyPassword '123456'
+            storeFile file('../keystore/cinderellaStore.jks')
+            storePassword '123456'
+        }
+        debug {
+            keyAlias 'hanyu'
+            keyPassword '123456'
+            storeFile file('../keystore/cinderellaStore.jks')
+            storePassword '123456'
+        }
+    }
+
     compileOptions {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
