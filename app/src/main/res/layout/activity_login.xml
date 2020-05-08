@@ -28,7 +28,8 @@
             android:paddingTop="12dp"
             android:textColor="@color/black_title_color"
             android:textColorHint="@color/grayText"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:text="18516634528"/>
 
 
 
@@ -52,6 +53,7 @@
         android:layout_marginTop="12dp"
         android:background="@drawable/shape_gray50"
         android:hint="输入登录密码"
+        android:text="123456"
         android:inputType="textPassword"
         android:maxLength="11"
         android:paddingBottom="12dp"

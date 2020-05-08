@@ -22,5 +22,16 @@ public class GlobalParam {
     }
 
 
+    //存 用户的token
+    public static void setUserToken(String userid) {
+        SharedPreferencesUtil.saveStringData(CinderellaStoreApplication.mContext, Constant.user_token, userid);
+    }
+    //取 用户的用户的token
+    public static String getUserToken() {
+        return SharedPreferencesUtil.getStringData(CinderellaStoreApplication.mContext, Constant.user_token,"");
+    }
+
+
+
 
 }

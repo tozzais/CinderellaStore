@@ -43,12 +43,12 @@ public class SignUtil {
 
     //静态方法，便于作为工具类
     public static String getMd5(TreeMap<String, String> keys) {
-//        Arrays.sort(keys);
-        keys.put("appSecret","ipd");
-        StringBuffer sign = new StringBuffer();
+       StringBuffer sign = new StringBuffer();
         for (Map.Entry<String, String> entry : keys.entrySet()) {
-            sign.append(entry.getValue());
+            sign.append(entry.getKey()+"="+entry.getValue()+"&");
         }
+        sign.append("secret=241cd2aa2aae01cd2&");
+        sign.append("timestamp="+System.currentTimeMillis()/1000);
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(("" + sign).getBytes());

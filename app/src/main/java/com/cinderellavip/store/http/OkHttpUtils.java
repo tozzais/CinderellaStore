@@ -1,7 +1,9 @@
-package com.tozzais.baselibrary.http;
+package com.cinderellavip.store.http;
 
 
 import android.text.TextUtils;
+
+import com.cinderellavip.store.global.GlobalParam;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -22,8 +24,6 @@ public class OkHttpUtils {
 
     private static OkHttpClient singleton;
 
-
-
     public static OkHttpClient getInstance() {
         if (singleton == null) {
             synchronized (OkHttpUtils.class) {
@@ -35,19 +35,7 @@ public class OkHttpUtils {
                             .connectTimeout(HTTP_CONNECT_TIMEOUT, TimeUnit.SECONDS)
                             .readTimeout(HTTP_READ_TIMEOUT, TimeUnit.SECONDS)
                             .addInterceptor(interceptor)
-                            .addInterceptor(new Interceptor() {
-                                @Override
-                                public Response intercept(Chain chain) throws IOException {
-                                    Request.Builder builder = chain.request().newBuilder();
-                                    Request request;
-//                                    String userToken = GlobalParam.getUserToken();
-//                                    if (!TextUtils.isEmpty(userToken)){
-//                                        builder.addHeader("token",userToken);
-//                                    }
-                                    request = builder.build();
-                                    return chain.proceed(request);
-                                }
-                            });
+                            .addInterceptor(new CommonInterceptor());
                     singleton = builder.build();
                 }
             }

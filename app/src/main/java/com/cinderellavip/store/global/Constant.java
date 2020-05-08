@@ -20,7 +20,7 @@ public class Constant {
     public static String search_history = "hk_search_history";
     public static String user_id = "hk_user_id";
     public static String user_nickname = "hk_user_nickname";
-    public static String user_token = "hk_user_token";
+    public static String user_token = "hk_user_token_store";
     public static String user_bean_string = "hk_user_bean_string";
     public static String user_first_use = "hk_user_first_use_store";
     public static String user_login_finish = "hk_user_login_finish";

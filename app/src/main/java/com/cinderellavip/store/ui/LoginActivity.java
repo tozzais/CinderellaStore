@@ -9,8 +9,18 @@ import android.widget.EditText;
 
 import com.cinderellavip.store.MainActivity;
 import com.cinderellavip.store.R;
+import com.cinderellavip.store.bean.UserInfo;
+import com.cinderellavip.store.global.GlobalParam;
+import com.cinderellavip.store.http.ApiManager;
+import com.cinderellavip.store.http.BaseResult;
+import com.cinderellavip.store.http.CommonInterceptor;
+import com.cinderellavip.store.http.Response;
+import com.tozzais.baselibrary.http.RxHttp;
 import com.tozzais.baselibrary.ui.BaseActivity;
 import com.tozzais.baselibrary.util.CommonUtils;
+import com.tozzais.baselibrary.util.sign.SignUtil;
+
+import java.util.TreeMap;
 
 import androidx.annotation.Nullable;
 import butterknife.BindView;
@@ -63,7 +73,18 @@ public class LoginActivity extends BaseActivity {
             tsg("请输入登录密码");
             return;
         }
-        MainActivity.launch(mActivity);
+        TreeMap<String, String> hashMap = new TreeMap<>();
+        hashMap.put("account", phone);
+        hashMap.put("password", pass);
+        CommonInterceptor.setCommonParam(hashMap);
+        new RxHttp<BaseResult<UserInfo>>().send(ApiManager.getService().getLogin(hashMap),
+                new Response<BaseResult<UserInfo>>(mActivity) {
+                    @Override
+                    public void onSuccess(BaseResult<UserInfo> result) {
+                        MainActivity.launch(mActivity);
+                    }
+                });
+
 
     }
 
