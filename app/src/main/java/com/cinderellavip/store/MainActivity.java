@@ -8,10 +8,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.cinderellavip.store.bean.HomeInfo;
 import com.cinderellavip.store.dialog.CenterDialogUtil;
 import com.cinderellavip.store.global.GlobalParam;
+import com.cinderellavip.store.global.ImageUtil;
+import com.cinderellavip.store.http.ApiManager;
+import com.cinderellavip.store.http.BaseResult;
+import com.cinderellavip.store.http.Response;
 import com.cinderellavip.store.ui.LoginActivity;
 import com.flyco.roundview.RoundTextView;
+import com.tozzais.baselibrary.http.RxHttp;
 import com.tozzais.baselibrary.ui.BaseActivity;
 
 import butterknife.BindView;
@@ -23,6 +29,8 @@ public class MainActivity extends BaseActivity {
     LinearLayout llTip;
     @BindView(R.id.iv_image)
     ImageView ivImage;
+    @BindView(R.id.iv_image_flag)
+    ImageView iv_image_flag;
     @BindView(R.id.tv_name)
     TextView tvName;
     @BindView(R.id.tv_content)
@@ -64,6 +72,46 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void loadData() {
+        new RxHttp<BaseResult<HomeInfo>>().send(ApiManager.getService().getHome(),
+                new Response<BaseResult<HomeInfo>>(isLoad,mActivity) {
+                    @Override
+                    public void onSuccess(BaseResult<HomeInfo> result) {
+                        HomeInfo homeInfo = result.data;
+                        ImageUtil.loadNet(mContext,ivImage,homeInfo.logo);
+                        if (homeInfo.type == 1){
+                            llTip.setVisibility(View.VISIBLE);
+                            iv_image_flag.setVisibility(View.GONE);
+                        }else if (homeInfo.type == 2){
+                            llTip.setVisibility(View.GONE);
+                            iv_image_flag.setVisibility(View.VISIBLE);
+                            iv_image_flag.setImageResource(R.mipmap.icon_store_flag1);
+                        }else if (homeInfo.type == 3){
+                            llTip.setVisibility(View.GONE);
+                            iv_image_flag.setVisibility(View.VISIBLE);
+                            iv_image_flag.setImageResource(R.mipmap.icon_store_flag2);
+                        }
+                        tvName.setText(homeInfo.name);
+                        tvContent.setText("商品："+homeInfo.products+"件     总销量："+homeInfo.sale+"件");
+                        if (homeInfo.refund>0){
+                            tvReturnOrder.setText(homeInfo.refund+"");
+                            tvReturnOrder.setVisibility(View.VISIBLE);
+                        }else {
+                            tvReturnOrder.setVisibility(View.GONE);
+                        }
+                        if (homeInfo.today>0){
+                            tvTodayOrder.setText(homeInfo.today+"");
+                            tvTodayOrder.setVisibility(View.VISIBLE);
+                        }else {
+                            tvTodayOrder.setVisibility(View.GONE);
+                        }
+                        if (homeInfo.send>0){
+                            tvSendOrder.setText(homeInfo.send+"");
+                            tvSendOrder.setVisibility(View.VISIBLE);
+                        }else {
+                            tvSendOrder.setVisibility(View.GONE);
+                        }
+                    }
+                });
 
     }
 

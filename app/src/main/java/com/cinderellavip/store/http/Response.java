@@ -1,13 +1,18 @@
 package com.cinderellavip.store.http;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 
+import com.cinderellavip.store.global.GlobalParam;
+import com.cinderellavip.store.ui.LoginActivity;
 import com.google.gson.JsonSyntaxException;
 import com.tozzais.baselibrary.util.NetworkUtil;
 import com.tozzais.baselibrary.util.progress.LoadingUtils;
 import com.tozzais.baselibrary.util.toast.ToastCommom;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
@@ -111,10 +116,9 @@ public class Response<T> extends Subscriber<T> {
                  * 单点登录  是首页的时候  都要走newIntent
                  *  不是首页的时候
                  */
-//                GlobalParam.setUserLogin(false);
+                GlobalParam.setUserLogin(false);
 //                GlobalParam.setUserId("0");
-//                EventBus.getDefault().post(new UpdateMineInfo());
-//                SelectLoginWayActivity.launch(true,(Activity) mContext);
+                LoginActivity.launch((Activity) mContext);
             }else {
                 if (!TextUtils.isEmpty(base.message)){
                     if (mNeedReturn && !isLoad){

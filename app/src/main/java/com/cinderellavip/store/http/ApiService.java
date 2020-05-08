@@ -2,6 +2,7 @@ package com.cinderellavip.store.http;
 
 
 
+import com.cinderellavip.store.bean.HomeInfo;
 import com.cinderellavip.store.bean.UserInfo;
 
 import java.util.TreeMap;
@@ -47,6 +48,10 @@ public interface ApiService {
     @GET(HttpUrl.forget_pass)
     Observable<BaseResult>
     getForgetPass(@QueryMap TreeMap<String, String> map);
+
+    @GET(HttpUrl.home)
+    Observable<BaseResult<HomeInfo>>
+    getHome();
 
 
 
