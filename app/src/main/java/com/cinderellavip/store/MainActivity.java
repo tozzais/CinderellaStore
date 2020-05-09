@@ -72,9 +72,11 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        setNotBackTitle("我的店铺");
-        setRightText("退出");
 
+    }
+    @Override
+    protected int getToolbarLayout() {
+        return R.layout.header_main;
     }
 
     @Override
@@ -130,7 +132,7 @@ public class MainActivity extends BaseActivity {
 
     @OnClick({R.id.tv_up_grade, R.id.ll_all_order, R.id.ll_return_order, R.id.ll_today_order,
             R.id.ll_send_order, R.id.ll_order_count, R.id.ll_order_money, R.id.ll_flow_count,
-            R.id.ll_mine_wallet})
+            R.id.ll_mine_wallet,R.id.tv_setting,R.id.tv_exit})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_up_grade:
@@ -170,15 +172,20 @@ public class MainActivity extends BaseActivity {
                 if (GlobalParam.getUserLogin())
                     WebViewActivity.launch(mActivity,HttpUrl.h5_url+"/#/wallet/"+GlobalParam.getUserToken());
                 break;
+            case R.id.tv_setting:
+                if (GlobalParam.getUserLogin())
+                    WebViewActivity.launch(mActivity,HttpUrl.h5_url+"/#/set/"+GlobalParam.getUserToken());
+                break;
+            case R.id.tv_exit:
+                exit();
+                break;
         }
     }
 
     @Override
     public void initListener() {
         super.initListener();
-        tv_right.setOnClickListener(view -> {
-            exit();
-        });
+
         swipeLayout.setOnRefreshListener(() -> {
             loadData();
         });

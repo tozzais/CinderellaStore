@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.cinderellavip.store.MainActivity;
 import com.cinderellavip.store.R;
@@ -16,6 +17,7 @@ import com.cinderellavip.store.global.GlobalParam;
 import com.cinderellavip.store.http.ApiManager;
 import com.cinderellavip.store.http.BaseResult;
 import com.cinderellavip.store.http.CommonInterceptor;
+import com.cinderellavip.store.http.HttpUrl;
 import com.cinderellavip.store.http.Response;
 import com.tozzais.baselibrary.http.RxHttp;
 import com.tozzais.baselibrary.ui.BaseActivity;
@@ -33,6 +35,10 @@ public class LoginActivity extends BaseActivity {
     EditText etPhone;
     @BindView(R.id.et_pass)
     EditText etPass;
+
+
+    @BindView(R.id.iv_agreement)
+    ImageView ivAgreement;
 
     public static void launch(Activity activity) {
         Intent intent = new Intent(activity, LoginActivity.class);
@@ -75,6 +81,10 @@ public class LoginActivity extends BaseActivity {
             tsg("请输入登录密码");
             return;
         }
+        if (!isSelete){
+            tsg("请勾选《用户协议》和《隐私条款》");
+            return;
+        }
         TreeMap<String, String> hashMap = new TreeMap<>();
         hashMap.put("account", phone);
         hashMap.put("password", pass);
@@ -105,8 +115,8 @@ public class LoginActivity extends BaseActivity {
 
 
 
-
-    @OnClick({R.id.tv_forget, R.id.tv_login, R.id.tv_switch})
+    private boolean isSelete = false;
+    @OnClick({R.id.tv_register_agreement, R.id.tv_privacy, R.id.iv_agreement,R.id.tv_forget, R.id.tv_login, R.id.tv_switch})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_forget:
@@ -117,6 +127,16 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.tv_switch:
                 CodeLoginActivity.launch(mActivity);
+                break;
+            case R.id.iv_agreement:
+                isSelete = !isSelete;
+                ivAgreement.setImageResource(isSelete?R.mipmap.agreement_selete_yes:R.mipmap.agreement_selete_no);
+                break;
+            case R.id.tv_register_agreement:
+                AgreementWebViewActivity.launch(mActivity, HttpUrl.server_url+"api/user/agreements/10");
+                break;
+            case R.id.tv_privacy:
+                AgreementWebViewActivity.launch(mActivity,HttpUrl.server_url+"api/user/agreements/11");
                 break;
 
         }

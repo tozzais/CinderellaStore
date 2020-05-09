@@ -42,7 +42,7 @@ public class PrivacyUtil {
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View widget) {
-                AgreementWebViewActivity.launch(context,HttpUrl.server_url+"api/user/agreements/1");
+                AgreementWebViewActivity.launch(context,HttpUrl.server_url+"api/user/agreements/10");
             }
 
             @Override
@@ -57,7 +57,7 @@ public class PrivacyUtil {
         ClickableSpan clickableSpan1 = new ClickableSpan() {
             @Override
             public void onClick(View widget) {
-                AgreementWebViewActivity.launch(context, HttpUrl.server_url+"api/user/agreements/2");
+                AgreementWebViewActivity.launch(context, HttpUrl.server_url+"api/user/agreements/11");
             }
 
             @Override

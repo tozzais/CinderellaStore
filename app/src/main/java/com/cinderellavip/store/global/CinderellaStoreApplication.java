@@ -25,7 +25,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 
 
-public class CinderellaStoreApplication extends Application {
+public class    CinderellaStoreApplication extends Application {
     public static Context mContext;
     @Override
     public void onCreate() {
