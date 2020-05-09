@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebView;
 import com.tozzais.baselibrary.ui.BaseActivity;
+import com.tozzais.baselibrary.util.log.LogUtil;
 import com.ycbjie.webviewlib.BridgeHandler;
 import com.ycbjie.webviewlib.CallBackFunction;
 import com.ycbjie.webviewlib.X5WebView;
@@ -54,6 +55,7 @@ public class WebViewActivity extends BaseActivity {
 
     public static void launch(Context from,  String url) {
         Intent intent = new Intent(from, WebViewActivity.class);
+        LogUtil.e(url);
         intent.putExtra("url", url);
         from.startActivity(intent);
     }
