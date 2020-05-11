@@ -55,7 +55,6 @@ public class WebViewActivity extends BaseActivity {
 
     public static void launch(Context from,  String url) {
         Intent intent = new Intent(from, WebViewActivity.class);
-        LogUtil.e(url);
         intent.putExtra("url", url);
         from.startActivity(intent);
     }
@@ -100,6 +99,7 @@ public class WebViewActivity extends BaseActivity {
         web_view.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
 
         web_view.addJavascriptInterface(new AppJs(this), "toPay");
+        web_view.addJavascriptInterface(new AppJs(this), "changeSuccess");
 //        web_view.registerHandler("toPay", new BridgeHandler() {
 //            @Override
 //            public void handler(String data, CallBackFunction function) {
