@@ -1,7 +1,10 @@
 package com.cinderellavip.store;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,6 +13,7 @@ import android.widget.TextView;
 
 import com.cinderellavip.store.bean.HomeInfo;
 import com.cinderellavip.store.bean.UpdateHome;
+import com.cinderellavip.store.bean.VersionBean;
 import com.cinderellavip.store.dialog.CenterDialogUtil;
 import com.cinderellavip.store.global.GlobalParam;
 import com.cinderellavip.store.global.ImageUtil;
@@ -19,16 +23,26 @@ import com.cinderellavip.store.http.HttpUrl;
 import com.cinderellavip.store.http.Response;
 import com.cinderellavip.store.ui.LoginActivity;
 import com.cinderellavip.store.ui.WebViewActivity;
+import com.cinderellavip.store.util.VersionUtil;
 import com.flyco.roundview.RoundTextView;
 import com.tozzais.baselibrary.http.RxHttp;
 import com.tozzais.baselibrary.ui.BaseActivity;
-import com.tozzais.baselibrary.util.log.LogUtil;
+import com.tozzais.baselibrary.ui.CheckPermissionActivity;
+import com.xuexiang.xupdate.XUpdate;
+import com.xuexiang.xupdate._XUpdate;
+import com.xuexiang.xupdate.service.OnFileDownloadListener;
+import com.xuexiang.xutil.app.PathUtils;
+import com.xuexiang.xutil.display.HProgressDialogUtils;
 
+import java.io.File;
+import java.util.TreeMap;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends CheckPermissionActivity {
 
     @BindView(R.id.ll_tip)
     LinearLayout llTip;
@@ -189,6 +203,73 @@ public class MainActivity extends BaseActivity {
         swipeLayout.setOnRefreshListener(() -> {
             loadData();
         });
+
+        getVersion();
+    }
+
+    private void getVersion(){
+        TreeMap<String, String> hashMap = new TreeMap<>();
+        hashMap.put("type", 2 + "");
+        new RxHttp<BaseResult<VersionBean>>().send(ApiManager.getService().getVersion(hashMap),
+                new Response<BaseResult<VersionBean>>(mActivity,Response.BOTH) {
+                    @Override
+                    public void onSuccess(BaseResult<VersionBean> result) {
+//                        LogUtil.e(result.data.toString());
+                        String versionName=null;
+                        try {
+                            PackageManager pm = mContext.getPackageManager();
+                            PackageInfo pi = pm.getPackageInfo(mContext.getPackageName(), 0);
+                            versionName = pi.versionName;
+                        } catch (Exception e) {
+                        }
+                        if (VersionUtil.isModify(versionName,result.data.version)) {
+                            showDialog(result.data);
+                        }
+                    }
+                });
+    }
+
+    private VersionBean versionBean;
+    private void  showDialog(VersionBean versionBean){
+        this.versionBean = versionBean;
+        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+        builder.setTitle("版本更新提示");
+        builder.setMessage(versionBean.commit);
+        builder.setPositiveButton("立即更新", (dialogInterface, i) -> {
+            checkPermissions(needPermissions);
+
+        });
+        builder.setNegativeButton("暂不更新", null);
+        builder.create().show(); //构建AlertDialog并显示
+
+    }
+    private void downFile(VersionBean versionBean){
+        XUpdate.newBuild(mActivity)
+                .apkCacheDir(PathUtils.getExtDownloadsPath())
+                .build()
+                .download(versionBean.url, new OnFileDownloadListener() {
+                    @Override
+                    public void onStart() {
+                        HProgressDialogUtils.showHorizontalProgressDialog(mActivity, "下载进度", false);
+                    }
+
+                    @Override
+                    public void onProgress(float progress, long total) {
+                        HProgressDialogUtils.setProgress(Math.round(progress * 100));
+                    }
+
+                    @Override
+                    public boolean onCompleted(File file) {
+                        HProgressDialogUtils.cancel();
+                        _XUpdate.startInstallApk(mActivity, file);
+                        return false;
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        HProgressDialogUtils.cancel();
+                    }
+                });
     }
 
     private void exit(){
@@ -209,4 +290,14 @@ public class MainActivity extends BaseActivity {
             loadData();
         }
     }
+
+    @Override
+    public void permissionGranted() {
+        downFile(versionBean);
+    }
+
+    public static String[] needPermissions = {
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+    };
 }

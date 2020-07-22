@@ -4,6 +4,7 @@ package com.cinderellavip.store.http;
 
 import com.cinderellavip.store.bean.HomeInfo;
 import com.cinderellavip.store.bean.UserInfo;
+import com.cinderellavip.store.bean.VersionBean;
 
 import java.util.TreeMap;
 
@@ -59,6 +60,9 @@ public interface ApiService {
 //    getAgreement(@Path("type") String type);
 
 
+    @GET(HttpUrl.version)
+    Observable<BaseResult<VersionBean>>
+    getVersion(@QueryMap TreeMap<String, String> map);
 
 
 }

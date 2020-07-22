@@ -9,7 +9,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -71,4 +71,11 @@ dependencies {
 
     // 支付宝 SDK AAR 包所需的配置
     implementation(name: 'alipaySdk-15.6.8-20191021122514', ext: 'aar')
+
+    //版本更新
+    implementation 'com.github.xuexiangjys:XUpdate:1.1.4'
+    implementation 'com.zhy:okhttputils:2.6.2'
+    implementation 'com.github.xuexiangjys.XUtil:xutil-core:1.1.7'
+    implementation 'com.github.xuexiangjys.XUtil:xutil-sub:1.1.7'
+    implementation 'com.github.xuexiangjys.XAOP:xaop-runtime:1.0.5'
 }

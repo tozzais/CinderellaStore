@@ -15,6 +15,9 @@ public interface HttpUrl {
     String forget_pass = "api/seller/forget/pas";  //忘记密码
     String home = "api/seller/index";  //首页
 
+    //版本更新
+    String version = "api/store/new/version";
+
 
 
 }
