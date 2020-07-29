@@ -18,10 +18,23 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
 //        assertEquals(4, 2 + 2);
-        TreeMap<String, String> hashMap = new TreeMap<>();
-        hashMap.put("phone", "13166015579");
-        hashMap.put("password", "123456");
-        System.out.println(getMd5(hashMap));
+//        TreeMap<String, String> hashMap = new TreeMap<>();
+//        hashMap.put("phone", "13166015579");
+//        hashMap.put("password", "123456");
+//        System.out.println(getMd5(hashMap));
+        int[] numbers = new int[]{1,3,5};
+        int position = numbers[0];
+        for (int i = 0;i<numbers.length;i++){
+            if (i < numbers.length-1){
+                if (numbers[i]>numbers[i+1]){
+                    position = numbers[i+1];
+                    break;
+                }
+            }else {
+                position =position< numbers[numbers.length-1]?position:numbers[numbers.length-1];
+            }
+        }
+        System.out.println(position);
     }
 
     public  String getMd5(TreeMap<String, String> keys) {
@@ -55,6 +68,50 @@ public class ExampleUnitTest {
             e.printStackTrace();
             return null;
         }
+
+    }
+    public int minArray(int[] numbers) {
+        int position = 0;
+        for (int i = 0;i<numbers.length;i++){
+            if (i == 0){
+                position = numbers[0];
+            }else if (i < numbers.length-1){
+                if (numbers[i]>numbers[i+1]){
+                    position = numbers[i+1];
+                    break;
+                }
+            }else {
+                position = numbers[numbers.length-1];
+            }
+        }
+        return position;
+    }
+    @Test
+    public void isSubsequence() {
+        String t = "ahbgdc";
+        String s = "abc";
+        boolean is = false;
+        int j = 0;
+        for (int i = 0;i<s.length();i++){
+
+            char c = s.charAt(i);
+
+            for (;j<t.length();) {
+                char c1 = t.charAt(j);
+                if (c == c1){
+                    j++;
+                    if (i == s.length()-1){
+                        is = true;
+                    }
+                    break;
+                }else if (j == s.length()-1){
+                    is = false;
+                }else {
+                    j++;
+                }
+            }
+        }
+        System.out.println(is);
 
     }
 }
