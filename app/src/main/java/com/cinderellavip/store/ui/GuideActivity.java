@@ -44,6 +44,7 @@ public class GuideActivity extends BaseActivity {
     @Override
     public void initView(Bundle savedInstanceState) {
 
+
     }
 
 
